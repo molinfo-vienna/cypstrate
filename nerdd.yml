@@ -1,0 +1,368 @@
+module:
+  rank: 1
+  name: cypstrate
+  visible_name: CYPstrate
+  logo: !image logo.png
+  logo_title: Cytochrome P450 substrates
+  logo_caption: Prediction of Cytochrome P450 substrates
+  example_smiles: CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC
+
+  title: Predicting substrates in the CYP mediated phase I metabolism of xenobiotics
+  description: |
+    CYPstrate consists of a collection of machine learning classifiers (random forest 
+    and support vector machines) for the prediction of substrates and non-substrates of 
+    the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e. 
+    CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a 
+    high-quality data set of 1831 substrates and non-substrates compiled from public 
+    sources.
+
+    Two distinct prediction modes are available to cover different use cases (see 
+    below). Computation is currently limited to 500,000 compounds per query, which 
+    takes approximately 14 hours to calculate.
+
+  partners:
+    - name: University of Vienna
+      logo: !image logo_vienna.gif
+      url: https://www.univie.ac.at/en
+    - name: University of Hamburg
+      logo: !image logo_hamburg.gif
+      url: https://www.uni-hamburg.de/en
+
+  citations:
+    - |
+      Holmer, H.; de Bruyn Kops, C.; Stork, C.; Kirchmair, J.
+      CYPstrate: Combined machine learning models for the accurate classification of
+      cytochrome P450 enzyme substrates and non-substrates.<br>
+      Molecules **2021**.<br>
+      [doi: 10.3390/molecules26154678](https://doi.org/10.3390/molecules26154678)
+
+  additional_information: |
+    CYPstrate consists of a collection of machine learning classifiers (random forest
+    and support vector machines) for the prediction of substrates and non-substrates of
+    the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e.
+    CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a
+    high-quality data set of 1831 substrates and non-substrates compiled from public
+    sources.
+
+    Two distinct prediction modes are available to cover different use cases (see
+    below). Computation is currently limited to 500,000 compounds per query, which takes
+    approximately 14 hours to calculate.
+
+  optional_additional_information: |
+    #### Prediction modes
+
+    CYPstrate offers two prediction modes:
+
+    In **best performance** mode, for each CYP isozyme, several models are
+    combined by hard voting strategy
+    (majority voting). This approach yields maximum accuracy but some compounds of
+    interest may not be covered.
+
+    In **full coverage** mode the tool uses one classification model per CYP and
+    guarantees full coverage of
+    the input space for all molecules that are successfully preprocessed by the
+    tool. These models still achieve
+    a high prediction performance, but are worse compared to the models described
+    above.
+
+  contact:
+    - name: Malte Holmer
+      email: malte.holmer@stud.uni-hamburg.de
+    - name: Johannes Kirchmair
+      email: johannes.kirchmair@univie.ac.at
+
+  about: |
+    ## About CYPstrate
+
+    CYPstrate consists of a collection of machine learning classifiers (random forest
+    and support vector machines) for the prediction of substrates and non-substrates of
+    the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e.
+    CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a
+    high-quality data set of 1831 substrates and non-substrates compiled from public
+    sources.
+
+    Two distinct prediction modes are available to cover different use cases (see
+    below). Computation is currently limited to 500,000 compounds per query, which takes
+    approximately 14 hours to calculate.
+
+    ## Usage
+
+    ### Input
+
+    #### Molecules
+    
+    You can provide a single molecule by either providing a SMILES string or drawing it
+    in the JSME Molecule Editor. Multiple input molecules can be defined by uploading a
+    file (.smi or .sdf) with up to 500.000 molecules.
+    
+    The .smi file must contain one SMILES string per row, additional information for a
+    molecule must be separated from the SMILES by at least one whitespace character
+    (including tabs). At the moment an .sdf file is only parsed correctly if every entry
+    is valid by the .sdf specification, otherwise no predictions will be carried out.
+
+    #### Prediction modes
+
+    CYPstrate offers two prediction modes:
+    
+    In **best performance** mode, for each CYP isozyme, several models are combined by
+    hard voting strategy (majority voting). This approach yields maximum accuracy but
+    some compounds of interest may not be covered.
+    
+    In **full coverage** mode the tool uses one classification model per CYP and
+    guarantees full coverage of the input space for all molecules that are successfully
+    preprocessed by the tool. These models still achieve a high prediction performance,
+    but are worse compared to the models described above.
+
+    #### Molecular similarity
+
+    In order to provide a means to estimate the reliablity of a prediction result, the
+    checkbox "Calculate molecular smiliarity" can be checked. For every molecule and CYP
+    isoyzme the molecular similarity to the nearest neighbor in the respective training
+    set of each model will be calculated.
+
+    #### Starting the calculation
+
+    By pressing the submit button the calculation will be started if a valid input has
+    been provided, otherwise an error message will be shown. You will then be forwarded
+    to the results page and a permanent link is shown that you can use to obtain your
+    results, once the calculation is done.
+
+    ### Output
+
+    The results of the calculation will be displayed as a color-coded table indicating
+    results that are considered negative with red and positive results with green. Users
+    can download the results as a .csv file for later use. Results will be deleted
+    permanently after 60 days or as soon as the user presses the "Delete results" button
+    on the results page.
+
+    #### Explanation of the output columns of the results
+
+    Table 1. Explanation of the most important output columns.
+
+    | Column name              | Description                                                                                                                                                                                                                           |
+    |--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | Name                     | Unique integer assigned to each submitted molecule.                                                                                                                                                                                   |
+    | Input SMILES             | SMILES as submitted by the user.                                                                                                                                                                                                      |
+    | Filtered SMILES          | SMILES after preprocessing, for this representation the feature sets are calculated.                                                                                                                                                  |
+    | 2D structure             | 2D structure of the preprocessed molecule.                                                                                                                                                                                            |
+    | CYP<X>                   | Classification as substrate, non-substrate or non-predictable (see best performance classifiers) for the isozyme <X>, where <X> is the three letter naming conventions indicating family, subfamily and member number of the isozyme. |
+    | Mol. sim to training set | Always occurs after a CYP<X> column. The molecular similarity to the nearest neighbor in the training set used totrain the respective model. Molecular similarity is defined as Tanimoto coefficient by MACCs keys.                   |
+    | Error/Warnings           | Code for any errors or warnings thrown during the preprocessing procedure. See Table 2 for detailed explanations.                                                                                                                     |
+
+    #### Explanation of preprocessing error codes
+
+    All molecules that are provided as input are preprocessed before the input features
+    for the classification models are calculated. During the preprocessing procedure
+    several errors can occur leading to the exclusion of the molecule, in some cases a
+    warning is produced indicating that predictions can but imprecise. The returned
+    error and warning codes are explained in the following table:
+
+    Table 2. Detailed explanation of errors and warnings.
+
+    | Code | Error message or warning                                                                                                                                                         |
+    |------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | !1   | Invalid or empty input. No output was produced. Further information may be provided by additional messages.                                                                      |
+    | E1   | Molecule contains elements that were not considered by the training set, the molecule is not valid and is excluded.                                                              |
+    | V1   | Molecule cannot be converted from SMILES to rdkit mol and back, the molecule is not valid and is excluded.                                                                       |
+    | CS   | Molecule contains elements or patterns that cannot be standardized by the chembl_structure_pipeline.Molecule was not standardized before prediction, results might be imprecise. |
+
+
+  job_parameters:
+    - name: prediction_mode
+      verbose_name: Prediction mode
+      type: text
+      help_text: |
+        **Best performance**: Reports predictions from a consensus model (hard voting
+        classifier). Use this prediction mode if the accuracy of predictions is of
+        primary importance and coverage is not a key concern (predictions are only
+        reported for compounds for which a consensus is reached).
+
+        **Full coverage**: Reports predictions from the best-performing single
+        classifier. Use this prediction mode in cases where coverage is an important
+        factor.
+      choices: 
+        - value: best_performance
+          label: Best performance
+        - value: full_coverage
+          label: Full coverage
+      default: best_performance
+
+  result_properties:
+    - name: prediction_1a2
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP1A2
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_1a2
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP1A2
+    
+    - name: prediction_2a6
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2A6
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2a6
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2A6
+
+    - name: prediction_2b6
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2B6
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2b6
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2B6
+
+    - name: prediction_2c8
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2C8
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2c8
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2C8
+
+    - name: prediction_2c9
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2C9
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2c9
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2C9
+
+    - name: prediction_2c19
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2C19
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2c19
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2C19
+
+    - name: prediction_2d6
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2D6
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2d6
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2D6
+
+    - name: prediction_2e1
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      sortable: True
+      group: CYP2E1
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_2e1
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP2E1
+
+    - name: prediction_3a4
+      verbose_name: Prediction
+      type: small_integer
+      palette: unknownPositiveNegative
+      group: CYP3A4
+      choices:
+        - value: -1
+          label: No prediction
+        - value: 0
+          label: Non-substrate
+        - value: 1
+          label: Substrate
+    - name: neighbor_3a4
+      verbose_name: Mol. sim. to training set
+      type: float
+      palette: negativeToPositive
+      sortable: True
+      group: CYP3A4
