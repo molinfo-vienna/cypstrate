@@ -16,7 +16,7 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit else []
 
 setup(
     name="cypstrate",
-    version="0.1",
+    version="0.1.1",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
@@ -30,11 +30,10 @@ setup(
         "gensim==3.8.3",
         "pandas==1.2.1",
         "numpy==1.19.2",
+        "mol2vec==0.2.2",
+        "acm-hamburg-legacy>=0.2",
         "nerdd-module>=0.1.0",
-        "mol2vec @ git+https://github.com/samoturk/mol2vec",
-        "acm-hamburg-legacy @ git+https://github.com/molinfo-vienna/acm-hamburg-legacy.git",
-        # chembl_structure_pipeline 1.0.0 is not on PyPI
-        "chembl_structure_pipeline @ git+https://github.com/chembl/ChEMBL_Structure_Pipeline.git@1.0.0",
+        "chembl_structure_pipeline==1.1.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
     ],

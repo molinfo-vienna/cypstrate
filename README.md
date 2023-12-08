@@ -17,7 +17,7 @@ pip install -U cypstrate
 CYPstrate can be called from the **command line**. Examples:
 
 ```bash
-# can be used with input in SMILES format
+# input in SMILES format
 cypstrate "CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC"
 
 # prediction is one of "best_performance" (default) or "full_coverage"
@@ -33,8 +33,9 @@ cypstrate --output sdf molecules.smiles > result.sdf
 cypstrate --help
 ```
 
-In Python, calling the ```predict``` function of the ```CypstrateModel``` class results
-in a pandas DataFrame containing the prediction results for each input molecule.
+The model can be used in **Python**. Calling the ```predict``` function of the 
+```CypstrateModel``` class results in a pandas DataFrame containing the prediction 
+results for each input molecule.
 
 ```python
 from cypstrate import CypstrateModel
@@ -58,7 +59,7 @@ The result DataFrame contains the columns:
 * **preprocessed_mol**: the RDKit molecule after preprocessing
 * **errors**: a list of errors that occured during reading or preprocessing the input
 * **prediction_1a2, prediction_2a6, prediction_2b6, prediction_2c8, prediction_2c9, 
-prediction_2c19,prediction_2d6, prediction_2e1, prediction_3a4**: probability (between 
+prediction_2c19, prediction_2d6, prediction_2e1, prediction_3a4**: probability (between 
 0 and 1) of being a substrate of the given CYP isozyme
 * **neighbor_1a2, neighbor_2a6, neighbor_2b6, neighbor_2c8, neighbor_2c9, 
 neighbor_2c19, neighbor_2d6,neighbor_2e1,neighbor_3a4**: similarity to the most similar 
@@ -67,7 +68,7 @@ molecule in the corresponding training set
 
 ## Contribute
 
-```
+```bash
 conda env create -f environment.yml
 conda activate cypstrate
 pip install -e .[dev,test]
