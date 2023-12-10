@@ -1,4 +1,4 @@
-from nerdd_module.cli import auto_cli
+from nerdd_module import auto_cli
 
 from .cypstrate_model import CypstrateModel
 

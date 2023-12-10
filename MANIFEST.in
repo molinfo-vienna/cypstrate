@@ -1,0 +1,6 @@
+include cypstrate/maccs_fps/*.npy
+include cypstrate/models/best_performance/*.joblib
+include cypstrate/models/full_coverage/*.joblib
+include cypstrate/models/model_300dim_mol2vec.pkl
+include cypstrate/models/rdkit_descriptors_used.txt
+recursive-include cypstrate/data *

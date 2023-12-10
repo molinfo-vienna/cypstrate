@@ -1,4 +1,3 @@
-import os
 import warnings
 from functools import partial
 from itertools import product
@@ -8,11 +7,19 @@ from typing import Dict, List, Tuple
 import numpy as np
 import pandas as pd
 
+# avoid warnings from word2vec
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     from gensim.models import word2vec
 
-from acm_hamburg_legacy.preprocessing import AcmCspPipeline
+from .preprocessing import CypstratePreprocessingPipeline
+
+try:
+    # works in python 3.9+
+    from importlib.resources import files
+except ImportError:
+    from importlib_resources import files
+
 from joblib import load
 from mol2vec import features as m2v_features
 from nerdd_module import AbstractModel
@@ -23,18 +30,19 @@ from scipy.spatial.distance import cdist
 
 __all__ = ["CypstrateModel"]
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, "models")
-fp_path = os.path.join(current_dir, "maccs_fps")
+current_dir = files("cypstrate")
+models_path = current_dir / "models"
+fps_path = current_dir / "maccs_fps"
 feature_sets = ["rdkit", "morg2", "maccs", "mol2vec"]
 prediction_modes = ["best_performance", "full_coverage"]
 
 cyp_model_input_dict: Dict[str, Dict[str, Tuple]] = {}
 for pred_mode in prediction_modes:
     cyp_model_input_dict[pred_mode] = {}
-    model_pred_path = os.path.join(model_path, pred_mode)
+    model_pred_path = models_path / pred_mode
 
-    for model_name in os.listdir(model_pred_path):
+    for model_path in model_pred_path.iterdir():
+        model_name = model_path.name
         cyp = model_name.split("_")[1].lower()
         input_feature_sets = list(
             filter(lambda f_set: f_set in model_name, feature_sets)
@@ -42,24 +50,24 @@ for pred_mode in prediction_modes:
 
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", category=DeprecationWarning)
-            model = load(os.path.join(model_pred_path, model_name))
+            model = load(model_pred_path / model_name)
 
         cyp_model_input_dict[pred_mode][cyp] = (model, input_feature_sets)
 
 trainset_fps = {}
-for fp_name in os.listdir(fp_path):
+for fp_path in fps_path.iterdir():
+    fp_name = fp_path.name
     cyp = fp_name.split("_")[3].split(".")[0].lower()
     trainset_fps[cyp] = np.load(
-        os.path.join(fp_path, f"maccs_fps_trainset_{cyp.upper()}.npy")
+        (fps_path / f"maccs_fps_trainset_{cyp.upper()}.npy").open("rb")
     )
 
-with open(os.path.join(model_path, "rdkit_descriptors_used.txt"), "r") as desc_file:
+descriptor_file = models_path / "rdkit_descriptors_used.txt"
+with descriptor_file.open("r") as desc_file:
     descriptors_used = desc_file.read().split("\t")
 
 
-m2v_model = word2vec.Word2Vec.load(
-    os.path.join(current_dir, "models", "model_300dim_mol2vec.pkl")
-)
+m2v_model = word2vec.Word2Vec.load(str(models_path / "model_300dim_mol2vec.pkl"))
 
 
 def chunk_list_into_n_lists(l, n):
@@ -263,29 +271,7 @@ def predict(
 
 class CypstrateModel(AbstractModel):
     def __init__(self):
-        super().__init__(
-            preprocessing_pipeline=AcmCspPipeline(
-                min_weight=0,
-                max_weight=100_000,
-                allowed_elements=[
-                    "H",
-                    "B",
-                    "C",
-                    "N",
-                    "O",
-                    "F",
-                    "Si",
-                    "P",
-                    "S",
-                    "Cl",
-                    "Se",
-                    "Br",
-                    "I",
-                ],
-                remove_invalid_molecules=True,
-                remove_stereo=True,
-            )
-        )
+        super().__init__(preprocessing_pipeline=CypstratePreprocessingPipeline())
 
     def _predict_mols(
         self,

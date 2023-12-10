@@ -14,11 +14,8 @@ module:
     the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e. 
     CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a 
     high-quality data set of 1831 substrates and non-substrates compiled from public 
-    sources.
-
-    Two distinct prediction modes are available to cover different use cases (see 
-    below). Computation is currently limited to 500,000 compounds per query, which 
-    takes approximately 14 hours to calculate.
+    sources. Two distinct prediction modes are available to cover different use cases 
+    (see below).
 
   partners:
     - name: University of Vienna
@@ -190,7 +187,7 @@ module:
   result_properties:
     - name: prediction_1a2
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP1A2
@@ -210,7 +207,7 @@ module:
     
     - name: prediction_2a6
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2A6
@@ -230,7 +227,7 @@ module:
 
     - name: prediction_2b6
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2B6
@@ -250,7 +247,7 @@ module:
 
     - name: prediction_2c8
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C8
@@ -270,7 +267,7 @@ module:
 
     - name: prediction_2c9
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C9
@@ -290,7 +287,7 @@ module:
 
     - name: prediction_2c19
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C19
@@ -310,7 +307,7 @@ module:
 
     - name: prediction_2d6
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2D6
@@ -330,7 +327,7 @@ module:
 
     - name: prediction_2e1
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2E1
@@ -350,7 +347,7 @@ module:
 
     - name: prediction_3a4
       verbose_name: Prediction
-      type: small_integer
+      type: integer
       palette: unknownPositiveNegative
       group: CYP3A4
       choices:
