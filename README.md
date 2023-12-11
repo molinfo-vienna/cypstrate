@@ -9,6 +9,7 @@ set of 1831 substrates and non-substrates compiled from public sources.
 ## Installation
 
 ```bash
+# requires Python 3.8
 pip install -U cypstrate
 ```
 
@@ -21,7 +22,7 @@ CYPstrate can be called from the **command line**. Examples:
 cypstrate "CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC"
 
 # prediction is one of "best_performance" (default) or "full_coverage"
-cypstrate --prediction_mode full_coverage "CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C"
+cypstrate --prediction-mode full_coverage "CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C"
 
 # input can be a file
 cypstrate molecules.sdf > result.csv

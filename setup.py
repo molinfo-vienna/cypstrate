@@ -16,16 +16,16 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
 
 setup(
     name="cypstrate",
-    version="0.1.4",
+    version="0.1.5",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
+    python_requires=">=3.8,<3.9",
     url="https://github.com/molinfo-vienna/cypstrate.git",
     description="CYPstrate: Prediction of Cytochrome P450 substrates",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     include_package_data=True,
-    # zip_safe=True,
     install_requires=rdkit_requirement
     + [
         "scikit-learn==0.23.2",
