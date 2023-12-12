@@ -2,7 +2,7 @@ import warnings
 from functools import partial
 from itertools import product
 from multiprocessing import Pool
-from typing import Dict, List, Tuple
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -20,6 +20,8 @@ try:
 except ImportError:
     from importlib_resources import files
 
+from functools import lru_cache
+
 from joblib import load
 from mol2vec import features as m2v_features
 from nerdd_module import AbstractModel
@@ -30,44 +32,54 @@ from scipy.spatial.distance import cdist
 
 __all__ = ["CypstrateModel"]
 
-current_dir = files("cypstrate")
-models_path = current_dir / "models"
-fps_path = current_dir / "maccs_fps"
 feature_sets = ["rdkit", "morg2", "maccs", "mol2vec"]
 prediction_modes = ["best_performance", "full_coverage"]
 
-cyp_model_input_dict: Dict[str, Dict[str, Tuple]] = {}
-for pred_mode in prediction_modes:
-    cyp_model_input_dict[pred_mode] = {}
-    model_pred_path = models_path / pred_mode
 
-    for model_path in model_pred_path.iterdir():
-        model_name = model_path.name
-        cyp = model_name.split("_")[1].lower()
-        input_feature_sets = list(
-            filter(lambda f_set: f_set in model_name, feature_sets)
+# this function loads the models and fingerprints
+# since this takes a while, we cache the results
+@lru_cache(maxsize=1)
+def get_resources():
+    current_dir = files("cypstrate")
+    models_path = current_dir / "models"
+    fps_path = current_dir / "maccs_fps"
+
+    assert models_path is not None
+    assert fps_path is not None
+
+    cyp_model_input_dict = {}
+    for pred_mode in prediction_modes:
+        cyp_model_input_dict[pred_mode] = {}
+        model_pred_path = models_path / pred_mode
+
+        for model_path in model_pred_path.iterdir():
+            model_name = model_path.name
+            cyp = model_name.split("_")[1].lower()
+            input_feature_sets = list(
+                filter(lambda f_set: f_set in model_name, feature_sets)
+            )
+
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=DeprecationWarning)
+                model = load(model_pred_path / model_name)
+
+            cyp_model_input_dict[pred_mode][cyp] = (model, input_feature_sets)
+
+    trainset_fps = {}
+    for fp_path in fps_path.iterdir():
+        fp_name = fp_path.name
+        cyp = fp_name.split("_")[3].split(".")[0].lower()
+        trainset_fps[cyp] = np.load(
+            (fps_path / f"maccs_fps_trainset_{cyp.upper()}.npy").open("rb")
         )
 
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", category=DeprecationWarning)
-            model = load(model_pred_path / model_name)
+    descriptor_file = models_path / "rdkit_descriptors_used.txt"
+    with descriptor_file.open("r") as desc_file:
+        descriptors_used = desc_file.read().split("\t")
 
-        cyp_model_input_dict[pred_mode][cyp] = (model, input_feature_sets)
+    m2v_model = word2vec.Word2Vec.load(str(models_path / "model_300dim_mol2vec.pkl"))
 
-trainset_fps = {}
-for fp_path in fps_path.iterdir():
-    fp_name = fp_path.name
-    cyp = fp_name.split("_")[3].split(".")[0].lower()
-    trainset_fps[cyp] = np.load(
-        (fps_path / f"maccs_fps_trainset_{cyp.upper()}.npy").open("rb")
-    )
-
-descriptor_file = models_path / "rdkit_descriptors_used.txt"
-with descriptor_file.open("r") as desc_file:
-    descriptors_used = desc_file.read().split("\t")
-
-
-m2v_model = word2vec.Word2Vec.load(str(models_path / "model_300dim_mol2vec.pkl"))
+    return cyp_model_input_dict, trainset_fps, descriptors_used, m2v_model
 
 
 def chunk_list_into_n_lists(l, n):
@@ -127,7 +139,7 @@ def get_morgan2_fp(mol):
     return morgan2_fp
 
 
-def get_rdkit(mols):
+def get_rdkit(mols, descriptors_used):
     """
     Method to calculate rdkit descriptors
 
@@ -170,7 +182,7 @@ def map_results_to_readable_output(results):
     return results
 
 
-def get_molsim_for_cyp(mol_fps, cyp):
+def get_molsim_for_cyp(mol_fps, cyp, trainset_fps):
     """
     Method to calculate the nearest neighbor molecular similarity as tanimoto coefficient to the training set
     that was used to train the specified CYP model.
@@ -214,6 +226,8 @@ def predict(
         ]
         return pd.DataFrame(columns=columns)
 
+    cyp_model_input_dict, trainset_fps, descriptors_used, m2v_model = get_resources()
+
     cores = 4
 
     # calculate features
@@ -235,13 +249,19 @@ def predict(
     desc_dict["mol2vec"] = np.vstack(pool.map(get_mol2vec_partial, mols))
 
     # rdkit calculation
-    desc_dict["rdkit"] = np.vstack(pool.map(get_rdkit, mols))
+    get_rdkit_partial = partial(get_rdkit, descriptors_used=descriptors_used)
+    desc_dict["rdkit"] = np.vstack(pool.map(get_rdkit_partial, mols))
 
     # calculate similarity to training data
     if applicability_domain:
         star_inputs = product([desc_dict["maccs"]], cyps)
         # ads_per_cyp
-        nnm_predictions = np.array(pool.starmap(get_molsim_for_cyp, star_inputs))
+        get_molsim_for_cyp_partial = partial(
+            get_molsim_for_cyp, trainset_fps=trainset_fps
+        )
+        nnm_predictions = np.array(
+            pool.starmap(get_molsim_for_cyp_partial, star_inputs)
+        )
     else:
         nnm_predictions = np.ones((len(cyps), len(mols_init))) * -1
 
