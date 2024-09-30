@@ -1,22 +1,26 @@
 from nerdd_module.preprocessing import (
     FilterByElement,
     FilterByWeight,
-    GetParentMol,
-    Pipeline,
+    GetParentMolWithCsp,
     StandardizeWithCsp,
 )
 
 from .canonicalize_tautomer import CanonicalizeTautomer
 from .do_smiles_roundtrip import DoSmilesRoundtrip
 
-__all__ = ["CypstratePreprocessingPipeline"]
+__all__ = ["cypstrate_preprocessing_steps"]
 
 
-class CypstratePreprocessingPipeline(Pipeline):
-    def __init__(
-        self,
+cypstrate_preprocessing_steps = [
+    DoSmilesRoundtrip(remove_stereo=True),
+    StandardizeWithCsp(),
+    GetParentMolWithCsp(),
+    FilterByWeight(
         min_weight=0,
         max_weight=100_000,
+        remove_invalid_molecules=True,
+    ),
+    FilterByElement(
         allowed_elements=[
             "H",
             "B",
@@ -33,25 +37,10 @@ class CypstratePreprocessingPipeline(Pipeline):
             "I",
         ],
         remove_invalid_molecules=True,
+    ),
+    CanonicalizeTautomer(
         remove_stereo=True,
-    ):
-        super().__init__(
-            steps=[
-                DoSmilesRoundtrip(remove_stereo=remove_stereo),
-                StandardizeWithCsp(),
-                GetParentMol(),
-                FilterByWeight(
-                    min_weight=min_weight,
-                    max_weight=max_weight,
-                    remove_invalid_molecules=remove_invalid_molecules,
-                ),
-                FilterByElement(
-                    allowed_elements, remove_invalid_molecules=remove_invalid_molecules
-                ),
-                CanonicalizeTautomer(
-                    remove_stereo=remove_stereo,
-                    remove_invalid_molecules=remove_invalid_molecules,
-                ),
-                DoSmilesRoundtrip(remove_stereo=False),
-            ]
-        )
+        remove_invalid_molecules=True,
+    ),
+    DoSmilesRoundtrip(remove_stereo=False),
+]
