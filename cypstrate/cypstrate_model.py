@@ -1,3 +1,4 @@
+import sys
 import warnings
 from functools import partial
 from itertools import product
@@ -12,23 +13,22 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     from gensim.models import word2vec
 
-from .preprocessing import CypstratePreprocessingPipeline
-
-try:
-    # works in python 3.9+
-    from importlib.resources import files
-except ImportError:
-    from importlib_resources import files
-
 from functools import lru_cache
 
 from joblib import load
 from mol2vec import features as m2v_features
-from nerdd_module import AbstractModel
+from nerdd_module import SimpleModel
 from rdkit.Chem import AllChem, DataStructs, Descriptors, Mol
 from rdkit.Chem.GraphDescriptors import Ipc
 from rdkit.ML.Descriptors import MoleculeDescriptors
 from scipy.spatial.distance import cdist
+
+from .preprocessing import cypstrate_preprocessing_steps
+
+if sys.version_info < (3, 9):
+    from importlib_resources import files
+else:
+    from importlib.resources import files
 
 __all__ = ["CypstrateModel"]
 
@@ -220,12 +220,6 @@ def predict(
 ):
     cyps = ["1a2", "2a6", "2b6", "2c8", "2c9", "2c19", "2d6", "2e1", "3a4"]
 
-    if len(mols) == 0:
-        columns = [f"prediction_{cyp}" for cyp in cyps] + [
-            f"neighbor_{cyp}" for cyp in cyps
-        ]
-        return pd.DataFrame(columns=columns)
-
     cyp_model_input_dict, trainset_fps, descriptors_used, m2v_model = get_resources()
 
     cores = 4
@@ -286,12 +280,20 @@ def predict(
         final_results[f"prediction_{label}"] = mlm_predictions[i, :]
         final_results[f"neighbor_{label}"] = nnm_predictions[i, :]
 
-    return pd.DataFrame(final_results)
+    records = pd.DataFrame(final_results).to_dict(
+        orient="records",
+    )
+    # if there os only one record, to_dict will just return a dict
+    # -> convert to list if necessary
+    if isinstance(records, list):
+        return records
+    else:
+        return [records]
 
 
-class CypstrateModel(AbstractModel):
+class CypstrateModel(SimpleModel):
     def __init__(self):
-        super().__init__(preprocessing_pipeline=CypstratePreprocessingPipeline())
+        super().__init__(preprocessing_steps=cypstrate_preprocessing_steps)
 
     def _predict_mols(
         self,

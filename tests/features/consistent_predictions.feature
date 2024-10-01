@@ -1,3 +1,4 @@
+@cypstrate
 Feature: Consistent predictions
 
   Scenario Outline: Predictions stay consistent with previous versions
@@ -7,33 +8,33 @@ Feature: Consistent predictions
     And the prediction mode is '<prediction_mode>'
     
     When the model generates predictions for the molecule representations
+    And the subset of the result where the input was not None is considered
     
-    Then the result should be a pandas DataFrame
-    And the value in column 'name' should be '<name>'
-    And the value in column 'prediction_1a2' should be '<prediction_1a2>'
-    And the value in column 'neighbor_1a2' should be '<neighbor_1a2>'
-    And the value in column 'prediction_2a6' should be '<prediction_2a6>'
-    And the value in column 'neighbor_2a6' should be '<neighbor_2a6>'
-    And the value in column 'prediction_2b6' should be '<prediction_2b6>'
-    And the value in column 'neighbor_2b6' should be '<neighbor_2b6>'
-    And the value in column 'prediction_2c8' should be '<prediction_2c8>'
-    And the value in column 'neighbor_2c8' should be '<neighbor_2c8>'
-    And the value in column 'prediction_2c9' should be '<prediction_2c9>'
-    And the value in column 'neighbor_2c9' should be '<neighbor_2c9>'
-    And the value in column 'prediction_2c19' should be '<prediction_2c19>'
-    And the value in column 'neighbor_2c19' should be '<neighbor_2c19>'
-    And the value in column 'prediction_2d6' should be '<prediction_2d6>'
-    And the value in column 'neighbor_2d6' should be '<neighbor_2d6>'
-    And the value in column 'prediction_2e1' should be '<prediction_2e1>'
-    And the value in column 'neighbor_2e1' should be '<neighbor_2e1>'
-    And the value in column 'prediction_3a4' should be '<prediction_3a4>'
-    And the value in column 'neighbor_3a4' should be '<neighbor_3a4>'
+    Then the value in column 'name' should be equal to '<name>'
+    And the value in column 'prediction_1a2' should be equal to <prediction_1a2>
+    And the value in column 'neighbor_1a2' should be equal to <neighbor_1a2>
+    And the value in column 'prediction_2a6' should be equal to <prediction_2a6>
+    And the value in column 'neighbor_2a6' should be equal to <neighbor_2a6>
+    And the value in column 'prediction_2b6' should be equal to <prediction_2b6>
+    And the value in column 'neighbor_2b6' should be equal to <neighbor_2b6>
+    And the value in column 'prediction_2c8' should be equal to <prediction_2c8>
+    And the value in column 'neighbor_2c8' should be equal to <neighbor_2c8>
+    And the value in column 'prediction_2c9' should be equal to <prediction_2c9>
+    And the value in column 'neighbor_2c9' should be equal to <neighbor_2c9>
+    And the value in column 'prediction_2c19' should be equal to <prediction_2c19>
+    And the value in column 'neighbor_2c19' should be equal to <neighbor_2c19>
+    And the value in column 'prediction_2d6' should be equal to <prediction_2d6>
+    And the value in column 'neighbor_2d6' should be equal to <neighbor_2d6>
+    And the value in column 'prediction_2e1' should be equal to <prediction_2e1>
+    And the value in column 'neighbor_2e1' should be equal to <neighbor_2e1>
+    And the value in column 'prediction_3a4' should be equal to <prediction_3a4>
+    And the value in column 'neighbor_3a4' should be equal to <neighbor_3a4>
 
     Examples:
     | prediction_mode  | input_smiles                                                                                                  | name                     | preprocessed_smiles                                                          | prediction_1a2 | neighbor_1a2 | prediction_2a6 | neighbor_2a6 | prediction_2b6 | neighbor_2b6 | prediction_2c8 | neighbor_2c8 | prediction_2c9 | neighbor_2c9 | prediction_2c19 | neighbor_2c19 | prediction_2d6 | neighbor_2d6 | prediction_2e1 | neighbor_2e1 | prediction_3a4 | neighbor_3a4 | errors
     | best_performance | C1=NC2=C(N1COCCO)N=C(NC2=O)N Aciclovir                                                                        | Aciclovir                | Nc1nc(=O)c2ncn(COCCO)c2[nH]1                                                 | No prediction  | 0.75         | Non-substrate  | 0.75         | Non-substrate  | 0.75         | Non-substrate  | 0.75         | Non-substrate  | 0.75         | Non-substrate   | 0.75          | Non-substrate  | 0.75         | Non-substrate  | 0.75         | Non-substrate  | 0.75         |                                                    
     | best_performance | CCN(CC)CCOc1c(I)cc(cc1I)C(=O)c2c3ccccc3oc2CCCC Amiodarone                                                     | Amiodarone               | CCCCc1oc2ccccc2c1C(=O)c1cc(I)c(OCCN(CC)CC)c(I)c1                             | Substrate      | 1            | Non-substrate  | 0.74         | No prediction  | 0.74         | No prediction  | 0.74         | Non-substrate  | 1            | Substrate       | 1             | Substrate      | 1            | Non-substrate  | 1            | Substrate      | 1            |                                                    
-    | best_performance | C1=CC(=C(C=C1[As]=[As]C2=CC(=C(C=C2)O)N)N)O.Cl.Cl Arsphenamine (Salvarsan)                                    | Arsphenamine (Salvarsan) | (none)                                                                       | (none)         | (none)       | (none)         | (none)       | (none)         | (none)       | (none)         | (none)       | (none)         | (none)       | (none)          | (none)        | (none)         | (none)       | (none)         | (none)       | (none)         | (none)       | !1, E1                                             
+    | best_performance | C1=CC(=C(C=C1[As]=[As]C2=CC(=C(C=C2)O)N)N)O.Cl.Cl Arsphenamine (Salvarsan)                                    | Arsphenamine (Salvarsan) | None                                                                         | None           | None         | None           | None         | None           | None         | None           | None         | None           | None         | None            | None          | None           | None         | None           | None         | None           | None         | !1, E1                                             
     | best_performance | C1CNP(=O)(OC1)N(CCCl)CCCl Cyclophosphamide                                                                    | Cyclophosphamide         | O=P1(N(CCCl)CCCl)NCCCO1                                                      | No prediction  | 1            | Substrate      | 1            | Substrate      | 1            | Substrate      | 1            | No prediction  | 1            | Substrate       | 1             | Non-substrate  | 1            | Non-substrate  | 1            | Substrate      | 1            |                                                    
     | best_performance | C[C@H]1[C@H]([C@H](C[C@@H](O1)O[C@H]2C[C@@](Cc3c2c(c4c(c3O)C(=O)c5cccc(c5C4=O)OC)O)(C(=O)CO)O)N)O Doxorubicin | Doxorubicin              | COc1cccc2c(O)c3c(O)c4c(c(O)c3c(O)c12)=C(OC1CC(N)C(O)C(C)O1)CC(O)(C(=O)CO)C=4 | Non-substrate  | 0.7          | Non-substrate  | 0.7          | Non-substrate  | 0.68         | Non-substrate  | 0.68         | Non-substrate  | 0.7          | Non-substrate   | 0.7           | Non-substrate  | 0.7          | Non-substrate  | 0.68         | Non-substrate  | 0.7          |                                                    
     | best_performance | O=S(=O)(N)c1c(Cl)cc2c(c1)S(=O)(=O)NCN2 Hydrochlorothiazide                                                    | Hydrochlorothiazide      | NS(=O)(=O)c1cc2c(cc1Cl)NCNS2(=O)=O                                           | Non-substrate  | 0.66         | Non-substrate  | 0.65         | No prediction  | 0.66         | No prediction  | 0.66         | No prediction  | 0.66         | No prediction   | 0.66          | Non-substrate  | 0.66         | Non-substrate  | 0.66         | No prediction  | 0.66         |                                                    
