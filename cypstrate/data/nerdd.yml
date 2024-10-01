@@ -166,7 +166,7 @@ module:
 
   job_parameters:
     - name: prediction_mode
-      verbose_name: Prediction mode
+      visible_name: Prediction mode
       type: text
       help_text: |
         **Best performance**: Reports predictions from a consensus model (hard voting
@@ -186,7 +186,7 @@ module:
 
   result_properties:
     - name: prediction_1a2
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -199,14 +199,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_1a2
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP1A2
     
     - name: prediction_2a6
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -219,14 +219,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2a6
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2A6
 
     - name: prediction_2b6
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -239,14 +239,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2b6
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2B6
 
     - name: prediction_2c8
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -259,14 +259,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2c8
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2C8
 
     - name: prediction_2c9
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -279,14 +279,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2c9
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2C9
 
     - name: prediction_2c19
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -299,14 +299,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2c19
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2C19
 
     - name: prediction_2d6
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -319,14 +319,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2d6
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2D6
 
     - name: prediction_2e1
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       sortable: True
@@ -339,14 +339,14 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_2e1
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
       group: CYP2E1
 
     - name: prediction_3a4
-      verbose_name: Prediction
+      visible_name: Prediction
       type: integer
       palette: unknownPositiveNegative
       group: CYP3A4
@@ -358,7 +358,7 @@ module:
         - value: 1
           label: Substrate
     - name: neighbor_3a4
-      verbose_name: Mol. sim. to training set
+      visible_name: Mol. sim. to training set
       type: float
       palette: negativeToPositive
       sortable: True
