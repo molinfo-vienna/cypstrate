@@ -16,7 +16,7 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
 
 setup(
     name="cypstrate",
-    version="0.1.7",
+    version="0.2.0",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
@@ -34,7 +34,7 @@ setup(
         "pandas==1.2.1",
         "numpy==1.19.2",
         "mol2vec==0.2.2",
-        "nerdd-module>=0.3.3",
+        "nerdd-module>=0.3.5",
         "chembl_structure_pipeline>=1.0.0,<1.2.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
@@ -44,7 +44,8 @@ setup(
     ],
     extras_require={
         "dev": [
-            "black",
+            "mypy",
+            "ruff",
         ],
         "test": [
             "pytest",
