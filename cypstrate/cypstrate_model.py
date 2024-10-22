@@ -3,10 +3,9 @@ import warnings
 from functools import partial
 from itertools import product
 from multiprocessing import Pool
-from typing import List
+from typing import Iterator, List
 
 import numpy as np
-import pandas as pd
 
 # avoid warnings from word2vec
 with warnings.catch_warnings():
@@ -55,9 +54,7 @@ def get_resources():
         for model_path in model_pred_path.iterdir():
             model_name = model_path.name
             cyp = model_name.split("_")[1].lower()
-            input_feature_sets = list(
-                filter(lambda f_set: f_set in model_name, feature_sets)
-            )
+            input_feature_sets = list(filter(lambda f_set: f_set in model_name, feature_sets))
 
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -69,9 +66,7 @@ def get_resources():
     for fp_path in fps_path.iterdir():
         fp_name = fp_path.name
         cyp = fp_name.split("_")[3].split(".")[0].lower()
-        trainset_fps[cyp] = np.load(
-            (fps_path / f"maccs_fps_trainset_{cyp.upper()}.npy").open("rb")
-        )
+        trainset_fps[cyp] = np.load((fps_path / f"maccs_fps_trainset_{cyp.upper()}.npy").open("rb"))
 
     descriptor_file = models_path / "rdkit_descriptors_used.txt"
     with descriptor_file.open("r") as desc_file:
@@ -117,9 +112,7 @@ def get_mol2vec(mols, model):
     :return: array with mol2vec vectors
     """
     sentences = [m2v_features.mol2alt_sentence(mol, radius=1) for mol in mols]
-    m2v_vecs = m2v_features.sentences2vec(
-        sentences=sentences, model=model, unseen="UNK"
-    )
+    m2v_vecs = m2v_features.sentences2vec(sentences=sentences, model=model, unseen="UNK")
 
     return m2v_vecs
 
@@ -132,9 +125,7 @@ def get_morgan2_fp(mol):
     :return: np.array with a morgan2 fingerprint
     """
     morgan2_fp = np.empty(2048)
-    DataStructs.ConvertToNumpyArray(
-        AllChem.GetMorganFingerprintAsBitVect(mol, 2, 2048), morgan2_fp
-    )
+    DataStructs.ConvertToNumpyArray(AllChem.GetMorganFingerprintAsBitVect(mol, 2, 2048), morgan2_fp)
 
     return morgan2_fp
 
@@ -217,7 +208,7 @@ def predict(
     mols: List[Mol],
     prediction_mode: str = "best_performance",
     applicability_domain: bool = True,
-):
+) -> Iterator[dict]:
     cyps = ["1a2", "2a6", "2b6", "2c8", "2c9", "2c19", "2d6", "2e1", "3a4"]
 
     cyp_model_input_dict, trainset_fps, descriptors_used, m2v_model = get_resources()
@@ -250,12 +241,8 @@ def predict(
     if applicability_domain:
         star_inputs = product([desc_dict["maccs"]], cyps)
         # ads_per_cyp
-        get_molsim_for_cyp_partial = partial(
-            get_molsim_for_cyp, trainset_fps=trainset_fps
-        )
-        nnm_predictions = np.array(
-            pool.starmap(get_molsim_for_cyp_partial, star_inputs)
-        )
+        get_molsim_for_cyp_partial = partial(get_molsim_for_cyp, trainset_fps=trainset_fps)
+        nnm_predictions = np.array(pool.starmap(get_molsim_for_cyp_partial, star_inputs))
     else:
         nnm_predictions = np.ones((len(cyps), len(mols_init))) * -1
 
@@ -275,20 +262,10 @@ def predict(
 
     pool.terminate()
 
-    final_results = dict()
-    for i, label in enumerate(cyps):
-        final_results[f"prediction_{label}"] = mlm_predictions[i, :]
-        final_results[f"neighbor_{label}"] = nnm_predictions[i, :]
-
-    records = pd.DataFrame(final_results).to_dict(
-        orient="records",
-    )
-    # if there os only one record, to_dict will just return a dict
-    # -> convert to list if necessary
-    if isinstance(records, list):
-        return records
-    else:
-        return [records]
+    for i in range(mlm_predictions.shape[1]):
+        predictions = {f"prediction_{cyp}": mlm_predictions[j, i] for j, cyp in enumerate(cyps)}
+        neighbors = {f"neighbor_{cyp}": nnm_predictions[j, i] for j, cyp in enumerate(cyps)}
+        yield {**predictions, **neighbors}
 
 
 class CypstrateModel(SimpleModel):
