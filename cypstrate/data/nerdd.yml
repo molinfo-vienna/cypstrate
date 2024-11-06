@@ -2,7 +2,7 @@ module:
   rank: 1
   name: cypstrate
   visible_name: CYPstrate
-  logo: !image logo.png
+  logo: !image logo.svg
   logo_title: Cytochrome P450 substrates
   logo_caption: Prediction of Cytochrome P450 substrates
   example_smiles: CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC
@@ -25,7 +25,7 @@ module:
       logo: !image logo_hamburg.gif
       url: https://www.uni-hamburg.de/en
 
-  citations:
+  publications:
     - |
       Holmer, H.; de Bruyn Kops, C.; Stork, C.; Kirchmair, J.
       CYPstrate: Combined machine learning models for the accurate classification of
