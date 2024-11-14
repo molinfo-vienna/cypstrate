@@ -26,47 +26,23 @@ module:
       url: https://www.uni-hamburg.de/en
 
   publications:
-    - |
-      Holmer, H.; de Bruyn Kops, C.; Stork, C.; Kirchmair, J.
-      CYPstrate: Combined machine learning models for the accurate classification of
-      cytochrome P450 enzyme substrates and non-substrates.<br>
-      Molecules **2021**.<br>
-      [doi: 10.3390/molecules26154678](https://doi.org/10.3390/molecules26154678)
-
-  additional_information: |
-    CYPstrate consists of a collection of machine learning classifiers (random forest
-    and support vector machines) for the prediction of substrates and non-substrates of
-    the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e.
-    CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a
-    high-quality data set of 1831 substrates and non-substrates compiled from public
-    sources.
-
-    Two distinct prediction modes are available to cover different use cases (see
-    below). Computation is currently limited to 500,000 compounds per query, which takes
-    approximately 14 hours to calculate.
-
-  optional_additional_information: |
-    #### Prediction modes
-
-    CYPstrate offers two prediction modes:
-
-    In **best performance** mode, for each CYP isozyme, several models are
-    combined by hard voting strategy
-    (majority voting). This approach yields maximum accuracy but some compounds of
-    interest may not be covered.
-
-    In **full coverage** mode the tool uses one classification model per CYP and
-    guarantees full coverage of
-    the input space for all molecules that are successfully preprocessed by the
-    tool. These models still achieve
-    a high prediction performance, but are worse compared to the models described
-    above.
-
-  contact:
-    - name: Malte Holmer
-      email: malte.holmer@stud.uni-hamburg.de
-    - name: Johannes Kirchmair
-      email: johannes.kirchmair@univie.ac.at
+    - title: |
+        CYPstrate: Combined machine learning models for the accurate classification of
+        cytochrome P450 enzyme substrates and non-substrates.
+      authors:
+        - first_name: Malte
+          last_name: Holmer
+          email: malte.holmer@stud.uni-hamburg.de
+        - first_name: Christina
+          last_name: de Bruyn Kops
+        - first_name: Conrad
+          last_name: Stork
+        - first_name: Johannes
+          last_name: Kirchmair
+          email: johannes.kirchmair@univie.ac.at
+      journal: Molecules
+      year: 2021
+      doi: 10.3390/molecules26154678
 
   about: |
     ## About CYPstrate
@@ -167,7 +143,7 @@ module:
   job_parameters:
     - name: prediction_mode
       visible_name: Prediction mode
-      type: text
+      type: string
       help_text: |
         **Best performance**: Reports predictions from a consensus model (hard voting
         classifier). Use this prediction mode if the accuracy of predictions is of
