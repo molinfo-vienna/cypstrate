@@ -1,0 +1,17 @@
+# git
+.git
+.gitignore
+
+# unit tests
+**/.hypothesis
+**/.coverage*
+**/.pytest_cache
+
+# linting and formatting
+**/.mypy_cache
+**/.ruff_cache
+
+# python
+**/__pycache__
+**/*.pyc
+dist
