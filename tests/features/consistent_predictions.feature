@@ -3,7 +3,6 @@ Feature: Consistent predictions
 
   Scenario Outline: Predictions stay consistent with previous versions
     Given an input molecule specified by '<input_smiles>'
-    And the input type is 'smiles'
     And the prediction mode is '<prediction_mode>'
     
     When the cypstrate model generates predictions for the molecule representations
