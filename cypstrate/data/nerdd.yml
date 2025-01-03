@@ -63,11 +63,11 @@ module:
     ### Input
 
     #### Molecules
-    
+
     You can provide a single molecule by either providing a SMILES string or drawing it
     in the JSME Molecule Editor. Multiple input molecules can be defined by uploading a
     file (.smi or .sdf) with up to 500.000 molecules.
-    
+
     The .smi file must contain one SMILES string per row, additional information for a
     molecule must be separated from the SMILES by at least one whitespace character
     (including tabs). At the moment an .sdf file is only parsed correctly if every entry
@@ -76,11 +76,11 @@ module:
     #### Prediction modes
 
     CYPstrate offers two prediction modes:
-    
+
     In **best performance** mode, for each CYP isozyme, several models are combined by
     hard voting strategy (majority voting). This approach yields maximum accuracy but
     some compounds of interest may not be covered.
-    
+
     In **full coverage** mode the tool uses one classification model per CYP and
     guarantees full coverage of the input space for all molecules that are successfully
     preprocessed by the tool. These models still achieve a high prediction performance,
@@ -139,7 +139,6 @@ module:
     | V1   | Molecule cannot be converted from SMILES to rdkit mol and back, the molecule is not valid and is excluded.                                                                       |
     | CS   | Molecule contains elements or patterns that cannot be standardized by the chembl_structure_pipeline.Molecule was not standardized before prediction, results might be imprecise. |
 
-
   job_parameters:
     - name: prediction_mode
       visible_name: Prediction mode
@@ -153,7 +152,7 @@ module:
         **Full coverage**: Reports predictions from the best-performing single
         classifier. Use this prediction mode in cases where coverage is an important
         factor.
-      choices: 
+      choices:
         - value: best_performance
           label: Best performance
         - value: full_coverage
@@ -163,7 +162,7 @@ module:
   result_properties:
     - name: prediction_1a2
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP1A2
@@ -180,10 +179,10 @@ module:
       palette: negativeToPositive
       sortable: True
       group: CYP1A2
-    
+
     - name: prediction_2a6
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2A6
@@ -203,7 +202,7 @@ module:
 
     - name: prediction_2b6
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2B6
@@ -223,7 +222,7 @@ module:
 
     - name: prediction_2c8
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C8
@@ -243,7 +242,7 @@ module:
 
     - name: prediction_2c9
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C9
@@ -263,7 +262,7 @@ module:
 
     - name: prediction_2c19
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2C19
@@ -283,7 +282,7 @@ module:
 
     - name: prediction_2d6
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2D6
@@ -303,7 +302,7 @@ module:
 
     - name: prediction_2e1
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       sortable: True
       group: CYP2E1
@@ -323,7 +322,7 @@ module:
 
     - name: prediction_3a4
       visible_name: Prediction
-      type: integer
+      type: int
       palette: unknownPositiveNegative
       group: CYP3A4
       choices:

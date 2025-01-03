@@ -15,11 +15,10 @@ def cypstrate_prediction_mode(prediction_mode):
     parsers.parse("the cypstrate model generates predictions for the molecule representations"),
     target_fixture="predictions",
 )
-def predictions(representations, input_type, prediction_mode):
+def predictions(representations, prediction_mode):
     model = CypstrateModel()
     return model.predict(
         representations,
-        input_type=input_type,
         prediction_mode=prediction_mode,
         output_format="record_list",
     )
