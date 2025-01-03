@@ -6,6 +6,7 @@ module:
   logo_title: Cytochrome P450 substrates
   logo_caption: Prediction of Cytochrome P450 substrates
   example_smiles: CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC
+  batch_size: 100
 
   title: Predicting substrates in the CYP mediated phase I metabolism of xenobiotics
   description: |

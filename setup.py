@@ -33,7 +33,7 @@ setup(
         "gensim==3.8.3",
         "numpy==1.19.2",
         "mol2vec==0.2.2",
-        "nerdd-module>=0.3.10",
+        "nerdd-module>=0.3.16",
         "chembl_structure_pipeline>=1.0.0,<1.2.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
