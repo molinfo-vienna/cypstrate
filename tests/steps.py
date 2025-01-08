@@ -12,7 +12,9 @@ def cypstrate_prediction_mode(prediction_mode):
 
 
 @when(
-    parsers.parse("the cypstrate model generates predictions for the molecule representations"),
+    parsers.parse(
+        "the cypstrate model generates predictions for the molecule representations"
+    ),
     target_fixture="predictions",
 )
 def predictions(representations, prediction_mode):
