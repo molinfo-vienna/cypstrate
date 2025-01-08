@@ -176,6 +176,7 @@ module:
           label: Substrate
     - name: neighbor_1a2
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -196,6 +197,7 @@ module:
           label: Substrate
     - name: neighbor_2a6
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -216,6 +218,7 @@ module:
           label: Substrate
     - name: neighbor_2b6
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -236,6 +239,7 @@ module:
           label: Substrate
     - name: neighbor_2c8
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -256,6 +260,7 @@ module:
           label: Substrate
     - name: neighbor_2c9
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -276,6 +281,7 @@ module:
           label: Substrate
     - name: neighbor_2c19
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -296,6 +302,7 @@ module:
           label: Substrate
     - name: neighbor_2d6
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -316,6 +323,7 @@ module:
           label: Substrate
     - name: neighbor_2e1
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
@@ -335,6 +343,7 @@ module:
           label: Substrate
     - name: neighbor_3a4
       visible_name: Mol. sim. to training set
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
