@@ -84,7 +84,7 @@ module:
 
     In **full coverage** mode the tool uses one classification model per CYP and
     guarantees full coverage of the input space for all molecules that are successfully
-    preprocessed by the tool. These models still achieve a high prediction performance,
+    preprocessed by the tool. These models still achieve a high prediction performance
     but are worse compared to the models described above.
 
     #### Molecular similarity
