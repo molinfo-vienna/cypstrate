@@ -16,6 +16,12 @@ from rdkit.Chem.MolStandardize import rdMolStandardize
 __all__ = ["CanonicalizeTautomer"]
 
 
+if hasattr(rdMolStandardize, "GetV1TautomerEnumerator"):
+    TautomerEnumerator = rdMolStandardize.GetV1TautomerEnumerator
+else:
+    TautomerEnumerator = rdMolStandardize.TautomerEnumerator
+
+
 class CanonicalizeTautomer(PreprocessingStep):
     """Canonalizes the molecules by removing stereochemistry and
     enumerating tautomers.
@@ -30,7 +36,7 @@ class CanonicalizeTautomer(PreprocessingStep):
         problems: List[Problem] = []
 
         # generating a canonical tautomer might ignore stereochemistry
-        canon = rdMolStandardize.GetV1TautomerEnumerator()
+        canon = TautomerEnumerator()
         if not self.remove_stereo:
             canon.SetRemoveBondStereo(False)
             canon.SetRemoveSp3Stereo(False)
