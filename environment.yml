@@ -4,6 +4,8 @@ channels:
   - defaults
 dependencies:
   - python=3.9
-  - rdkit=2020.09.1.0
+  - rdkit=2020.09.1
+  - chembl_structure_pipeline=1.0.0
   - scikit-learn=0.23.2
   - numpy=1.19.2
+  - gensim=3.8.3
