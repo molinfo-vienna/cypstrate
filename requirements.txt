@@ -1,1 +1,13 @@
-.
+gensim==3.8.3
+importlib_metadata==8.6.1
+importlib_resources==6.5.2
+joblib==1.4.2
+mol2vec==0.2.2
+nerdd_module==0.3.29
+numpy==1.20.3
+pytest_bdd==8.1.0
+rdkit==2020.09.1
+scikit_learn==0.23.2
+scipy==1.10.1
+setuptools==59.8.0
+nerdd-link==0.2.18
