@@ -1,9 +1,13 @@
-FROM mambaorg/micromamba:2.0.5-alpine3.20
-
-ENV ENV_NAME cypstrate
+#
+# BUILD APPLICATION
+#
+FROM mambaorg/micromamba:2.0.5-alpine3.20 as build
 
 # necessary to display the image on Github
 LABEL org.opencontainers.image.source="https://github.com/shirte/nerdd"
+
+# using the root user during the build stage
+USER root
 
 # keep Docker from buffering the output so we can see the output of the application in real-time
 ENV PYTHONUNBUFFERED 1
@@ -11,31 +15,43 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # copy package files first (for caching docker layers)
-COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml requirements.txt ./
+COPY environment.yml requirements.txt ./
 
 # install conda and pip dependencies
 # use mount caches to speed up the build
-# Note: uid=57439 is the user id of the mambauser in the micromamba image
 # RUN --mount=type=cache,uid=57439,gid=57439,target=/home/mambauser/.cache/pip \
 #     --mount=type=cache,uid=57439,gid=57439,target=/home/mambauser/.mamba/pkgs \
 # create environment
-RUN micromamba env create -f environment.yml && \
+# -p /env forces the environment to be created in /env so we don't have to know the env name
+RUN micromamba env create --copy -p /env -f environment.yml && \
     # fix a problem with the RDKit installation (keeping pip from seeing the conda-installed RDKit)
-    wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/4a419e6e2b9019e2d6d7d1fa0f9c2a4708c0fc53/rdkit_installation_fix.sh && \
+    wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh && \
     chmod +x rdkit_installation_fix.sh && \
-    ./rdkit_installation_fix.sh $ENV_NAME && \
+    ./rdkit_installation_fix.sh /env && \
     # install the pip dependencies
-    micromamba run -n $ENV_NAME pip install -r requirements.txt
+    micromamba run -p /env pip install -r requirements.txt
 
-# Copy the rest of the source code directory and install the main package.
-COPY --chown=$MAMBA_USER:$MAMBA_USER . .
-RUN micromamba run -n $ENV_NAME pip install --no-deps . && \
-    # Save space by deleting the pip cache.
-    rm -rf /home/mambauser/.cache/pip && \
-    # Save space by deleting micromamba's cache and tarballs.
-    micromamba clean --all --yes
+# copy the rest of the source code directory and install the main package
+COPY . .
+RUN micromamba run -p /env pip install --no-deps .
 
-ENTRYPOINT micromamba run -n $ENV_NAME \
-    nerdd_prediction_server cypstrate.CypstrateModel \
-    --broker-url $KAFKA_BROKER_URL \
-    --data-dir /data
+#
+# RUN APPLICATION
+#
+# TODO: use different image
+FROM python:3.9-slim
+# FROM gcr.io/distroless/base:nonroot
+
+# TODO: remove
+ENV KAFKA_BROKER_URL=$KAFKA_BROKER_URL
+
+RUN echo $KAFKA_BROKER_URL
+
+# copy the environment from the build stage
+COPY --from=build /env /env
+
+CMD [ \
+    # TODO: remove
+    "/bin/sh", "-c", \
+    "/env/bin/nerdd_prediction_server cypstrate.CypstrateModel --broker-url $KAFKA_BROKER_URL --data-dir /data" \
+    ]
