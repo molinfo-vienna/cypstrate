@@ -4,7 +4,7 @@
 FROM mambaorg/micromamba:2.0.5-alpine3.20 as build
 
 # necessary to display the image on Github
-LABEL org.opencontainers.image.source="https://github.com/shirte/nerdd"
+LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstrate"
 
 # using the root user during the build stage
 USER root
