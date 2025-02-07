@@ -45,8 +45,6 @@ FROM python:3.9-slim
 # TODO: remove
 ENV KAFKA_BROKER_URL=$KAFKA_BROKER_URL
 
-RUN echo $KAFKA_BROKER_URL
-
 # copy the environment from the build stage
 COPY --from=build /env /env
 
