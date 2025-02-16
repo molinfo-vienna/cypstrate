@@ -14,4 +14,6 @@
 # python
 **/__pycache__
 **/*.pyc
-dist
+dist/
+build/
+*.egg-info/

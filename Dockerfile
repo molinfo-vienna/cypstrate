@@ -1,41 +1,55 @@
-FROM mambaorg/micromamba:2.0.5-alpine3.20
+#
+# BUILD APPLICATION
+#
+FROM mambaorg/micromamba:2.0.5-alpine3.20 as build
 
 # necessary to display the image on Github
-LABEL org.opencontainers.image.source="https://github.com/shirte/nerdd"
+LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstrate"
 
+# using the root user during the build stage
 USER root
 
-# rdkit requires libxrender, libxext-dev and libxau
-# wget is used to download the RDKit installation fix script
-# entr is used for live reloading the application
-RUN apk update && apk add git libxrender libxext-dev libxau wget entr
-
-# Necessary, so Docker doesn't buffer the output and that we can see the output 
-# of the application in real-time.
+# keep Docker from buffering the output so we can see the output of the application in real-time
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-# Copy only the environment file first, so that we can cache the dependencies
-COPY environment.yml .
-RUN micromamba env create -f environment.yml
+# copy package files first (for caching docker layers)
+COPY environment.yml requirements.txt ./
 
-# Fix a problem with the RDKit installation
-RUN wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/4a419e6e2b9019e2d6d7d1fa0f9c2a4708c0fc53/rdkit_installation_fix.sh \
-    && chmod +x rdkit_installation_fix.sh \
-    && ./rdkit_installation_fix.sh cypstrate
+# install conda and pip dependencies
+# use mount caches to speed up the build
+# RUN --mount=type=cache,uid=57439,gid=57439,target=/home/mambauser/.cache/pip \
+#     --mount=type=cache,uid=57439,gid=57439,target=/home/mambauser/.mamba/pkgs \
+# create environment
+# -p /env forces the environment to be created in /env so we don't have to know the env name
+RUN micromamba env create --copy -p /env -f environment.yml && \
+    # fix a problem with the RDKit installation (keeping pip from seeing the conda-installed RDKit)
+    wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh && \
+    chmod +x rdkit_installation_fix.sh && \
+    ./rdkit_installation_fix.sh /env && \
+    # install the pip dependencies
+    micromamba run -p /env pip install -r requirements.txt
 
-# Copy the rest of the source code directory and install the main package
+# copy the rest of the source code directory and install the main package
 COPY . .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    micromamba run -n cypstrate pip install .
+RUN micromamba run -p /env pip install --no-deps .
 
-RUN --mount=type=cache,target=/root/.cache/pip \
-    micromamba run -n cypstrate pip install nerdd-link==0.2.13
+#
+# RUN APPLICATION
+#
+# TODO: use different image
+FROM python:3.9-slim
+# FROM gcr.io/distroless/base:nonroot
 
-# Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
-# standard output, not the output of the application.
-ENTRYPOINT micromamba run -n cypstrate \
-    nerdd_prediction_server cypstrate.CypstrateModel \
-    --broker-url $KAFKA_BROKER_URL \
-    --data-dir /data
+# TODO: remove
+ENV KAFKA_BROKER_URL=$KAFKA_BROKER_URL
+
+# copy the environment from the build stage
+COPY --from=build /env /env
+
+CMD [ \
+    # TODO: remove
+    "/bin/sh", "-c", \
+    "/env/bin/nerdd_prediction_server cypstrate.CypstrateModel --broker-url $KAFKA_BROKER_URL --data-dir /data" \
+    ]

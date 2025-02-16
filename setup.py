@@ -17,7 +17,7 @@ setup(
         "rdkit==2020.09.1",
         "scikit-learn==0.23.2",
         "gensim==3.8.3",
-        "numpy==1.19.2",
+        "numpy==1.20.3",
         "mol2vec==0.2.2",
         "nerdd-module>=0.3.16",
         "chembl_structure_pipeline==1.0.0",
