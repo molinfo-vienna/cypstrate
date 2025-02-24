@@ -164,7 +164,6 @@ module:
     - name: prediction_1a2
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP1A2
       choices:
@@ -174,18 +173,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_1a2
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP1A2
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2a6
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2A6
       choices:
@@ -195,18 +205,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2a6
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2A6
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2b6
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2B6
       choices:
@@ -216,18 +237,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2b6
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2B6
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2c8
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2C8
       choices:
@@ -237,18 +269,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2c8
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2C8
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2c9
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2C9
       choices:
@@ -258,18 +301,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2c9
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2C9
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2c19
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2C19
       choices:
@@ -279,18 +333,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2c19
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2C19
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2d6
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2D6
       choices:
@@ -300,18 +365,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2d6
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2D6
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_2e1
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       sortable: True
       group: CYP2E1
       choices:
@@ -321,18 +397,29 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_2e1
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP2E1
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
 
     - name: prediction_3a4
       visible_name: Prediction
       type: int
-      palette: unknownPositiveNegative
       group: CYP3A4
       choices:
         - value: -1
@@ -341,10 +428,22 @@ module:
           label: Non-substrate
         - value: 1
           label: Substrate
+      color_palette:
+        range:
+          - neutral
+          - positive
+          - negative
     - name: neighbor_3a4
       visible_name: Mol. sim. to training set
       visible: False
       type: float
-      palette: negativeToPositive
       sortable: True
       group: CYP3A4
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - neutral
+          - positive
