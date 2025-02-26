@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.2 (2025-02-26)
+
+### Fixes
+
+* fix: Convert setup.py to pyproject.toml ([`d6c9df0`](https://github.com/molinfo-vienna/cypstrate/commit/d6c9df03ae6503ee46af778d8eb8d1ec1b95ca68))
+
+### Unknown
+
+* Merge pull request #16 from shirte/main
+
+fix: Convert setup.py to pyproject.toml ([`91a7f76`](https://github.com/molinfo-vienna/cypstrate/commit/91a7f762afb109b9db63a36b94dc25b522b14e88))
+
+
 ## v0.0.1 (2025-02-26)
 
 ### Fixes
