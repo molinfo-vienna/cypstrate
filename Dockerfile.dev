@@ -1,0 +1,55 @@
+#
+# BUILD APPLICATION
+#
+FROM mambaorg/micromamba:2.0.5-alpine3.20
+
+# necessary to display the image on Github
+LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstrate"
+
+# using the root user during the build stage
+USER root
+
+# keep Docker from buffering the output so we can see the output of the application in real-time
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# copy package files first (for caching docker layers)
+COPY environment.yml requirements.txt ./
+
+COPY --from=repos ./nerdd-link /deps/nerdd-link
+COPY --from=repos ./nerdd-module /deps/nerdd-module
+
+# install conda and pip dependencies
+# use mount caches to speed up the build
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=cache,target=/root/.mamba/pkgs \
+    # create environment
+    # -p /env forces the environment to be created in /env so we don't have to know the env name
+    micromamba env create --copy -p /env -f environment.yml && \
+    # fix a problem with the RDKit installation (keeping pip from seeing the conda-installed RDKit)
+    wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh && \
+    chmod +x rdkit_installation_fix.sh && \
+    ./rdkit_installation_fix.sh /env && \
+    # modify requirements.txt to use the local nerdd-link and nerdd-module packages
+    sed -i \
+    # replace "nerdd-module==some_version" with "-e /deps/nerdd-module"
+    -e 's/^nerdd-module==.*$/-e \/deps\/nerdd-module/' \
+    # replace "nerdd-link==some_version" with "-e /deps/nerdd-link"
+    -e 's/^nerdd-link==.*$/-e \/deps\/nerdd-link/' \
+    requirements.txt && \
+    # install the pip dependencies
+    micromamba run -p /env pip install -r requirements.txt
+
+# copy the rest of the source code directory and install the main package
+COPY . .
+RUN micromamba run -p /env pip install --no-deps -e .
+
+#
+# RUN APPLICATION
+#
+CMD [\
+    "/bin/bash", \
+    "-c", \
+    "micromamba run -p /env nerdd_prediction_server cypstrate.CypstrateModel --broker-url ${KAFKA_BROKER_URL} --data-dir /data" \
+    ]
