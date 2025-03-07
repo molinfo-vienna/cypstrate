@@ -1,7 +1,7 @@
 #
 # BUILD APPLICATION
 #
-FROM mambaorg/micromamba:2.0.5-alpine3.20 as build
+FROM mambaorg/micromamba:2.0.5-alpine3.20 AS build
 
 # necessary to display the image on Github
 LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstrate"
@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstra
 USER root
 
 # keep Docker from buffering the output so we can see the output of the application in real-time
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
