@@ -47,6 +47,13 @@ Repository = "https://github.com/molinfo-vienna/cypstrate"
 [project.scripts]
 cypstrate = "cypstrate.__main__:main"
 
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-x --cov-report term --cov=cypstrate"
+
+[tool.pytest-watcher]
+patterns = ["*.py", "*.feature", "pyproject.toml"]
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
