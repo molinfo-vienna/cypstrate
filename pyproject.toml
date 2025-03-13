@@ -34,7 +34,7 @@ dependencies = [
 dev = ["mypy", "ruff"]
 test = [
     "pytest",
-    "pytest-watch",
+    "pytest-watcher",
     "pytest-cov",
     "pytest-bdd==7.3.0",
     "hypothesis",
