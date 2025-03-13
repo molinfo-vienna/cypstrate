@@ -1,4 +1,3 @@
-import logging
 from typing import List, Tuple
 
 # disable rdkit logging messages
