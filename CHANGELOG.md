@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.3 (2025-03-30)
+
+### Fixes
+
+* fix: Specify color palettes for result properties ([`69d0fb5`](https://github.com/molinfo-vienna/cypstrate/commit/69d0fb52c0d36f5ebf6e542ea087ffdc457556ed))
+
+### Unknown
+
+* Merge pull request #17 from shirte/main
+
+Specify color palettes for result properties ([`bb61f25`](https://github.com/molinfo-vienna/cypstrate/commit/bb61f25ac951e97f09228b1ed4ab70a940c2e42d))
+
+* Bump version of nerdd-module ([`37fe09c`](https://github.com/molinfo-vienna/cypstrate/commit/37fe09c68fe76c08d8fe5f4d23999c03015d7b59))
+
+
 ## v0.0.2 (2025-02-26)
 
 ### Fixes
