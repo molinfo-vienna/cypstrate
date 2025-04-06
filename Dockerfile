@@ -38,9 +38,7 @@ RUN micromamba run -p /env pip install --no-deps .
 #
 # RUN APPLICATION
 #
-# TODO: use different image
-FROM python:3.9-slim
-# FROM gcr.io/distroless/base:nonroot
+FROM gcr.io/distroless/base-debian12
 
 # copy the environment from the build stage
 COPY --from=build /env /env
