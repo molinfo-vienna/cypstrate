@@ -34,7 +34,7 @@ dependencies = [
 dev = ["mypy", "ruff"]
 test = [
     "pytest",
-    "pytest-watch",
+    "pytest-watcher",
     "pytest-cov",
     "pytest-bdd==7.3.0",
     "hypothesis",
@@ -47,6 +47,13 @@ Repository = "https://github.com/molinfo-vienna/cypstrate"
 [project.scripts]
 cypstrate = "cypstrate.__main__:main"
 
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-x --cov-report term --cov=cypstrate"
+
+[tool.pytest-watcher]
+patterns = ["*.py", "*.feature", "pyproject.toml"]
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
