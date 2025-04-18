@@ -1,6 +1,35 @@
 # CHANGELOG
 
 
+## v0.0.4 (2025-04-18)
+
+### Fixes
+
+* fix: Use pytest-watcher ([`e15a3e6`](https://github.com/molinfo-vienna/cypstrate/commit/e15a3e6a0f1131dc788b81dc259ca5e20046d1e2))
+
+### Unknown
+
+* Merge pull request #19 from shirte/main
+
+Move pytest config to pyproject.toml ([`ebdfe66`](https://github.com/molinfo-vienna/cypstrate/commit/ebdfe665acd8d9d1aa041e6fa36f599ad2a3f86e))
+
+* Remove unused import ([`7aad639`](https://github.com/molinfo-vienna/cypstrate/commit/7aad6392c92131c3010c98e76a384719e68880a5))
+
+* Reorder entries in requirements.txt ([`a8647b7`](https://github.com/molinfo-vienna/cypstrate/commit/a8647b72a113e43a84e7210042327d7cd5d82cba))
+
+* Move pytest config to pyproject.toml ([`b00ab53`](https://github.com/molinfo-vienna/cypstrate/commit/b00ab532f5d723165af5694a16dfb64ce4f57ab3))
+
+* Merge pull request #18 from shirte/main
+
+Bump version of nerdd-module and nerdd-link ([`d2d79ae`](https://github.com/molinfo-vienna/cypstrate/commit/d2d79aed312ae77933ce458417e078d5912fdae7))
+
+* Bump versions of nerdd-module and nerdd-link ([`68148c4`](https://github.com/molinfo-vienna/cypstrate/commit/68148c4f875b57d771fdc36588a5c6ce3a1fa62b))
+
+* Create development Dockerfile ([`f494c70`](https://github.com/molinfo-vienna/cypstrate/commit/f494c701e61abbd21d28a0c9b059601e26faac64))
+
+* Improve Dockerfile ([`187485f`](https://github.com/molinfo-vienna/cypstrate/commit/187485f9775f85f77c4c48b8d0d32d4bb3e502e5))
+
+
 ## v0.0.3 (2025-03-30)
 
 ### Fixes
