@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.5 (2025-04-19)
+
+### Fixes
+
+* fix: Bump version of nerdd-link ([`f82befe`](https://github.com/molinfo-vienna/cypstrate/commit/f82befe2e68b01bc291b5b078cdc884513d9d017))
+
+### Unknown
+
+* Merge pull request #20 from shirte/main
+
+fix: Bump version of nerdd-link ([`9b15f76`](https://github.com/molinfo-vienna/cypstrate/commit/9b15f76959a18ae51de742ff46c2501136b4dbe1))
+
+
 ## v0.0.4 (2025-04-18)
 
 ### Fixes
