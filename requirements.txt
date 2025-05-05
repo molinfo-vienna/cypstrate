@@ -4,9 +4,8 @@ importlib_resources==6.5.2
 joblib==1.5.0
 mol2vec==0.2.2
 numpy==1.20.3
-pytest_bdd==8.1.0
 rdkit==2020.09.1
 scikit_learn==0.23.2
 scipy==1.10.1
-nerdd-module==0.3.36
-nerdd-link==0.2.23
+nerdd-module==0.3.37
+nerdd-link==0.4.1
