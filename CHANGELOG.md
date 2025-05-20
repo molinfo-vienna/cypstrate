@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v0.0.6 (2025-05-20)
+
+### Documentation
+
+* docs: Update installation instructions for cypstrate ([`f668986`](https://github.com/molinfo-vienna/cypstrate/commit/f66898693ef37dbcd7a94c445c77f6769de6a35a))
+
+### Fixes
+
+* fix: Upgrade setuptools ([`ae606b6`](https://github.com/molinfo-vienna/cypstrate/commit/ae606b64168ffc9049030f161ff80430618a0ce7))
+
+### Unknown
+
+* Merge pull request #21 from shirte/main
+
+Update setuptools dependency ([`eed2e39`](https://github.com/molinfo-vienna/cypstrate/commit/eed2e39bd5a5a85a2570c70ca6a921032917a4f6))
+
+* Use conda entrypoint in Dockerfile.dev ([`af501d1`](https://github.com/molinfo-vienna/cypstrate/commit/af501d19150ead02ed61b4738e6d8879c6518b48))
+
+
 ## v0.0.5 (2025-04-19)
 
 ### Fixes
