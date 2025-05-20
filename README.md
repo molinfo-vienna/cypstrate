@@ -18,7 +18,7 @@ wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/
 chmod +x rdkit_installation_fix.sh && \
 ./rdkit_installation_fix.sh cypstrate
 
-
+pip install .
 ```
 
 ## Usage
