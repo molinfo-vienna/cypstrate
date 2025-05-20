@@ -1,6 +1,3 @@
-#
-# BUILD APPLICATION
-#
 FROM mambaorg/micromamba:2.0.5-alpine3.20
 
 # necessary to display the image on Github
@@ -48,8 +45,6 @@ RUN micromamba run -p /env pip install --no-deps -e .
 #
 # RUN APPLICATION
 #
-CMD [\
-    "/bin/bash", \
-    "-c", \
-    "micromamba run -p /env nerdd_prediction_server cypstrate.CypstrateModel --broker-url ${KAFKA_BROKER_URL} --data-dir /data" \
-    ]
+ENTRYPOINT micromamba run -p /env nerdd_prediction_server cypstrate.CypstrateModel \
+    --broker-url ${KAFKA_BROKER_URL} \
+    --data-dir /data
