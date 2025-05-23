@@ -1,6 +1,29 @@
 # CHANGELOG
 
 
+## v0.0.7 (2025-05-23)
+
+### Documentation
+
+* docs: Add missing line in installation instructions ([`c209783`](https://github.com/molinfo-vienna/cypstrate/commit/c20978340e5aa3fc1acb36645b2f4696a08ccbb8))
+
+### Fixes
+
+* fix: Use distroless base image ([`fe16d66`](https://github.com/molinfo-vienna/cypstrate/commit/fe16d66822930e585071c4ca58554f20fe8db574))
+
+* fix: Use cypstrate as entrypoint in Dockerfile ([`3213756`](https://github.com/molinfo-vienna/cypstrate/commit/3213756c4115da496ea3f49909e2f1ffc13594d8))
+
+### Unknown
+
+* Merge pull request #23 from shirte/main
+
+Use cypstrate as entrypoint of Dockerfile ([`63b38e0`](https://github.com/molinfo-vienna/cypstrate/commit/63b38e04ab67bbeaaf6f97cd67f495794f1bdda4))
+
+* Merge pull request #22 from shirte/main
+
+docs: Add missing line in installation instructions ([`db2dfc9`](https://github.com/molinfo-vienna/cypstrate/commit/db2dfc9e03c4d2a554be32da49c76927dad5b31f))
+
+
 ## v0.0.6 (2025-05-20)
 
 ### Documentation
