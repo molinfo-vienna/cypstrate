@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.9 (2025-05-28)
+
+### Fixes
+
+* fix: arm64 compatibility ([`97d4d40`](https://github.com/molinfo-vienna/cypstrate/commit/97d4d402ea81d5a25ed39c2500f124b2e39ea7b6))
+
+### Unknown
+
+* Merge pull request #25 from molinfo-vienna/arm64
+
+fix: arm64 compatibility ([`c729429`](https://github.com/molinfo-vienna/cypstrate/commit/c729429be15a47264815e7e6eb7d0637705a4a83))
+
+
 ## v0.0.8 (2025-05-28)
 
 ### Fixes
