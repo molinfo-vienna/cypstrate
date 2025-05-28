@@ -1,7 +1,7 @@
 #
 # BUILD APPLICATION
 #
-FROM mambaorg/micromamba:2.0.5-alpine3.20 AS build
+FROM mambaorg/micromamba:2.0.5 AS build
 
 # necessary to display the image on Github
 LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cypstrate"
@@ -13,6 +13,8 @@ USER root
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
+
+RUN apt-get update -y && apt-get install wget
 
 # copy package files first (for caching docker layers)
 COPY environment.yml requirements.txt ./
