@@ -1,9 +1,22 @@
 # CHANGELOG
 
 
+## v0.0.10 (2025-05-28)
+
+### Unknown
+
+* Merge pull request #26 from molinfo-vienna/arm64
+
+Arm64 ([`cd0bc60`](https://github.com/molinfo-vienna/cypstrate/commit/cd0bc6077eb4f58fe78d09886b09f7f3922f5fff))
+
+* Merge branch 'main' into arm64 ([`5a5890a`](https://github.com/molinfo-vienna/cypstrate/commit/5a5890abafe4cda18c680f6d5a4aba2394e2f4b1))
+
+
 ## v0.0.9 (2025-05-28)
 
 ### Fixes
+
+* fix: arm64 compatibility ([`04d9f15`](https://github.com/molinfo-vienna/cypstrate/commit/04d9f1525ad6df628e9ea0f66b5a4031d9b61f00))
 
 * fix: arm64 compatibility ([`97d4d40`](https://github.com/molinfo-vienna/cypstrate/commit/97d4d402ea81d5a25ed39c2500f124b2e39ea7b6))
 
