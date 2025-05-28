@@ -14,7 +14,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update -y && apt-get install wget
+RUN apt-get update -y && apt-get install wget -qq
 
 # copy package files first (for caching docker layers)
 COPY environment.yml requirements.txt ./
