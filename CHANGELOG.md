@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.12 (2025-06-29)
+
+### Fixes
+
+* fix: Remove arm64 platform because gensim dependency is not available on arm ([`1b523bb`](https://github.com/molinfo-vienna/cypstrate/commit/1b523bb536fc45f78797d7f65a04162ac73110a3))
+
+### Unknown
+
+* Merge pull request #28 from shirte/main
+
+fix: Remove arm64 platform because gensim dependency is not available ([`ca4cb04`](https://github.com/molinfo-vienna/cypstrate/commit/ca4cb048bbd141db73ecc1fddc973a6afe3e97bc))
+
+
 ## v0.0.11 (2025-06-29)
 
 ### Fixes
