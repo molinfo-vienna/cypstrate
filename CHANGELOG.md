@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.11 (2025-06-29)
+
+### Fixes
+
+* fix: Bump dependency versions ([`ccf1a5f`](https://github.com/molinfo-vienna/cypstrate/commit/ccf1a5fccba5cf1e41cda181be8748294b6c32ea))
+
+### Unknown
+
+* Merge pull request #27 from shirte/main
+
+fix: Bump dependency versions ([`0846a44`](https://github.com/molinfo-vienna/cypstrate/commit/0846a44751f5c3500d2f8a6b438afa02791386d2))
+
+
 ## v0.0.10 (2025-05-28)
 
 ### Unknown
