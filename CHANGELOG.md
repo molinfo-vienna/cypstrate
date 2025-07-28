@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.13 (2025-07-28)
+
+### Fixes
+
+* fix: Derive from Model class ([`cba9b1d`](https://github.com/molinfo-vienna/cypstrate/commit/cba9b1dcb86f3e13498209a97f24b00e022774d8))
+
+* fix: Bump dependencies ([`23fca6a`](https://github.com/molinfo-vienna/cypstrate/commit/23fca6aee32ac6678ff3939b1bce3f1827da7bf5))
+
+### Unknown
+
+* Merge pull request #29 from shirte/main
+
+Adapt to nerdd-module 0.3.39 ([`040fafe`](https://github.com/molinfo-vienna/cypstrate/commit/040fafe0c02383c3278abd8062bbd6647e737f32))
+
+
 ## v0.0.12 (2025-06-29)
 
 ### Fixes
