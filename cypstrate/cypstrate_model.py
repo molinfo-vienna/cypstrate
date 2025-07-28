@@ -16,7 +16,7 @@ from functools import lru_cache
 
 from joblib import load
 from mol2vec import features as m2v_features
-from nerdd_module import SimpleModel
+from nerdd_module import Model
 from rdkit.Chem import AllChem, DataStructs, Descriptors, Mol
 from rdkit.Chem.GraphDescriptors import Ipc
 from rdkit.ML.Descriptors import MoleculeDescriptors
@@ -284,7 +284,7 @@ def predict(
         yield {**predictions, **neighbors}
 
 
-class CypstrateModel(SimpleModel):
+class CypstrateModel(Model):
     def __init__(self):
         super().__init__(preprocessing_steps=cypstrate_preprocessing_steps)
 
