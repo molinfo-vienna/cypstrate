@@ -7,6 +7,7 @@ from nerdd_module.preprocessing import (
 
 from .canonicalize_tautomer import CanonicalizeTautomer
 from .do_smiles_roundtrip import DoSmilesRoundtrip
+from .remove_light_molecules import RemoveLightMolecules
 
 __all__ = ["cypstrate_preprocessing_steps"]
 
@@ -38,6 +39,8 @@ cypstrate_preprocessing_steps = [
         ],
         remove_invalid_molecules=True,
     ),
+    # descriptor calculation fails for molecules without heavy atoms
+    RemoveLightMolecules(),
     CanonicalizeTautomer(
         remove_stereo=True,
         remove_invalid_molecules=True,
