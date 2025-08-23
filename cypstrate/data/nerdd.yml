@@ -163,15 +163,15 @@ module:
   result_properties:
     - name: prediction_1a2
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP1A2
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -195,15 +195,15 @@ module:
 
     - name: prediction_2a6
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2A6
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -227,15 +227,15 @@ module:
 
     - name: prediction_2b6
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2B6
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -259,15 +259,15 @@ module:
 
     - name: prediction_2c8
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2C8
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -291,15 +291,15 @@ module:
 
     - name: prediction_2c9
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2C9
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -323,15 +323,15 @@ module:
 
     - name: prediction_2c19
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2C19
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -355,15 +355,15 @@ module:
 
     - name: prediction_2d6
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2D6
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -387,15 +387,15 @@ module:
 
     - name: prediction_2e1
       visible_name: Prediction
-      type: int
+      type: str
       sortable: True
       group: CYP2E1
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
@@ -419,14 +419,14 @@ module:
 
     - name: prediction_3a4
       visible_name: Prediction
-      type: int
+      type: str
       group: CYP3A4
       choices:
-        - value: -1
+        - value: No prediction
           label: No prediction
-        - value: 0
+        - value: Non-substrate
           label: Non-substrate
-        - value: 1
+        - value: Substrate
           label: Substrate
       color_palette:
         range:
