@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v0.0.14 (2025-08-23)
+
+### Documentation
+
+* docs: Simplify installation instructions ([`af48db0`](https://github.com/molinfo-vienna/cypstrate/commit/af48db030c169b8dab8b218548637f587df39978))
+
+### Fixes
+
+* fix: Bump dependencies ([`1a80218`](https://github.com/molinfo-vienna/cypstrate/commit/1a80218dde6f678d38b2e1ff1822cb23d94fe414))
+
+* fix: Use correct types for result properties ([`9ba179d`](https://github.com/molinfo-vienna/cypstrate/commit/9ba179d3aa866ece85cd5aa7935433cca5c631c9))
+
+### Unknown
+
+* Merge pull request #30 from shirte/main
+
+Use correct types for result properties ([`f35f15e`](https://github.com/molinfo-vienna/cypstrate/commit/f35f15e9a97c51b63e4cd07e0ffb9d9153c08a06))
+
+
 ## v0.0.13 (2025-07-28)
 
 ### Fixes
