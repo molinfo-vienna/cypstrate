@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.15 (2025-09-01)
+
+### Fixes
+
+* fix: Use curl in docker images ([`29bb91a`](https://github.com/molinfo-vienna/cypstrate/commit/29bb91a451f452677b3795763bb982c4e7715588))
+
+### Unknown
+
+* Merge pull request #31 from shirte/main
+
+Use curl in docker images ([`908cf94`](https://github.com/molinfo-vienna/cypstrate/commit/908cf94bc5364a86135224b847723f1bfec72917))
+
+
 ## v0.0.14 (2025-08-23)
 
 ### Documentation
