@@ -17,7 +17,7 @@ cypstrate_preprocessing_steps = [
     GetParentMolWithCsp(),
     FilterByWeight(
         min_weight=0,
-        max_weight=100_000,
+        max_weight=10_000,
         remove_invalid_molecules=True,
     ),
     FilterByElement(
