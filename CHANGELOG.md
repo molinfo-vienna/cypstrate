@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.16 (2025-09-20)
+
+### Fixes
+
+* fix: Make weight filter more strict ([`65dca4f`](https://github.com/molinfo-vienna/cypstrate/commit/65dca4f8efc3626b3b288a2698f953c7c41392d9))
+
+* fix: Install curl in development Dockerfile ([`94089c6`](https://github.com/molinfo-vienna/cypstrate/commit/94089c65efca64c20b89f29ef1b3a98980cc45de))
+
+### Unknown
+
+* Merge pull request #32 from shirte/main
+
+Make weight filter more strict ([`896f73e`](https://github.com/molinfo-vienna/cypstrate/commit/896f73e3913b8f07cdc6617e0f49baba2283a0c2))
+
+
 ## v0.0.15 (2025-09-01)
 
 ### Fixes
