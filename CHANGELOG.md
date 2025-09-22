@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.17 (2025-09-22)
+
+### Fixes
+
+* fix: Remove molecule without heavy atoms ([`2574a89`](https://github.com/molinfo-vienna/cypstrate/commit/2574a898b13b22793ad32ac5ac95b039dbd75fb1))
+
+### Unknown
+
+* Merge pull request #33 from shirte/main
+
+Remove molecule without heavy atoms ([`841c0fd`](https://github.com/molinfo-vienna/cypstrate/commit/841c0fdc1e1f5dc66191381662bb16b0090d7c1f))
+
+
 ## v0.0.16 (2025-09-20)
 
 ### Fixes
