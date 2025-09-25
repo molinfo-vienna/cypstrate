@@ -8,7 +8,7 @@ Feature: Valid predictions
     And the prediction mode is '<prediction_mode>'
 
     When the cypstrate model generates predictions for the molecule representations
-    And the subset of the result where the input was not None is considered
+    And the subset of the result where the preprocessed mol was not None is considered
 
     Then the result should contain the columns:
             prediction_1a2

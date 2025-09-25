@@ -25,9 +25,7 @@ jobs:
         post-cleanup: 'all'
     - name: Fix RDKit
       run: |
-        wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh
-        chmod +x rdkit_installation_fix.sh
-        ./rdkit_installation_fix.sh cypstrate
+        curl -sS https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh | bash -s cypstrate
       shell: micromamba-shell {0}
     - name: Install dependencies
       run: |
