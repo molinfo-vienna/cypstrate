@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v0.0.18 (2025-09-25)
+
+### Fixes
+
+* fix: Use curl instead of wget in github actions ([`4a2c1cb`](https://github.com/molinfo-vienna/cypstrate/commit/4a2c1cb9ca9b43f653287841e290a6cadaf9f9cb))
+
+* fix: Update dependencies ([`5b86d3d`](https://github.com/molinfo-vienna/cypstrate/commit/5b86d3d1fe1940e41741903971c7a5f3e348c502))
+
+### Testing
+
+* test: Make sure preprocessed mols are not None ([`5c85350`](https://github.com/molinfo-vienna/cypstrate/commit/5c85350e3a9a71d1ad77a82256d27434ed966099))
+
+### Unknown
+
+* Merge pull request #34 from shirte/main
+
+Update dependencies ([`11a063a`](https://github.com/molinfo-vienna/cypstrate/commit/11a063a6a9fcdeba6184974958a282c3d96f0ae8))
+
+
 ## v0.0.17 (2025-09-22)
 
 ### Fixes
