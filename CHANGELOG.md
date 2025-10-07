@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.19 (2025-10-07)
+
+### Fixes
+
+* fix: Replace multiprocessing.Pool with ProcessPoolExecutor ([`4ba543c`](https://github.com/molinfo-vienna/cypstrate/commit/4ba543c83578f42e5460b415468080824c32a7ea))
+
+### Unknown
+
+* Merge pull request #35 from shirte/main
+
+Replace multiprocessing.Pool with ProcessPoolExecutor ([`8cb0028`](https://github.com/molinfo-vienna/cypstrate/commit/8cb00286843fcad93759dff95338e78215bc6b44))
+
+
 ## v0.0.18 (2025-09-25)
 
 ### Fixes
