@@ -1,8 +1,8 @@
 import sys
 import warnings
+from concurrent.futures import ProcessPoolExecutor
 from functools import partial
 from itertools import product
-from multiprocessing import Pool
 from typing import Iterator, List
 
 import numpy as np
@@ -158,7 +158,8 @@ def get_rdkit(mols, descriptors_used):
     return rdkit_2d_descs
 
 
-def get_prediction(model, X):
+def get_prediction(args):
+    model, X = args
     return model.predict(X)
 
 
@@ -181,7 +182,7 @@ def map_results_to_readable_output(results):
     return results
 
 
-def get_molsim_for_cyp(mol_fps, cyp, trainset_fps):
+def get_molsim_for_cyp(args):
     """
     Method to calculate the nearest neighbor molecular similarity as tanimoto coefficient to the training set
     that was used to train the specified CYP model.
@@ -192,6 +193,8 @@ def get_molsim_for_cyp(mol_fps, cyp, trainset_fps):
 
     :return array with nearest neighbor molecular similarities (as TC) for one cyp
     """
+    mol_fps, cyp, trainset_fps = args
+
     return nearest_neighbor_fps_to_fps(mol_fps, trainset_fps[cyp])
 
 
@@ -226,53 +229,45 @@ def predict(
     # calculate features
     desc_dict = {}
 
-    pool = Pool(cores)
+    # prefer ProcessPoolExecutor over multiprocessing.Pool due to better handling of SIGTERM
+    with ProcessPoolExecutor(max_workers=cores) as pool:
+        # # Prepare descriptors
+        desc_dict["morg2"] = np.vstack(list(pool.map(get_morgan2_fp, mols)))
+        desc_dict["maccs"] = np.vstack(list(pool.map(get_maccs_keys, mols)))
 
-    # # Prepare descriptors
-    desc_dict["morg2"] = np.vstack(pool.map(get_morgan2_fp, mols))
-    desc_dict["maccs"] = np.vstack(pool.map(get_maccs_keys, mols))
+        mols_init = mols
+        mols = chunk_list_into_n_lists(mols, cores)
 
-    mols_init = mols
-    mols = chunk_list_into_n_lists(mols, cores)
+        # Mol2Vec calculation
+        get_mol2vec_partial = partial(get_mol2vec, model=m2v_model)
 
-    # Mol2Vec calculation
-    get_mol2vec_partial = partial(get_mol2vec, model=m2v_model)
+        # mol2vec = np.vstack([get_mol2vec_partial(m) for m in mols])
+        desc_dict["mol2vec"] = np.vstack(list(pool.map(get_mol2vec_partial, mols)))
 
-    # mol2vec = np.vstack([get_mol2vec_partial(m) for m in mols])
-    desc_dict["mol2vec"] = np.vstack(pool.map(get_mol2vec_partial, mols))
+        # rdkit calculation
+        get_rdkit_partial = partial(get_rdkit, descriptors_used=descriptors_used)
+        desc_dict["rdkit"] = np.vstack(list(pool.map(get_rdkit_partial, mols)))
 
-    # rdkit calculation
-    get_rdkit_partial = partial(get_rdkit, descriptors_used=descriptors_used)
-    desc_dict["rdkit"] = np.vstack(pool.map(get_rdkit_partial, mols))
+        # calculate similarity to training data
+        if applicability_domain:
+            star_inputs = product([desc_dict["maccs"]], cyps, [trainset_fps])
+            nnm_predictions = np.array(list(pool.map(get_molsim_for_cyp, star_inputs)))
+        else:
+            nnm_predictions = np.ones((len(cyps), len(mols_init))) * -1
 
-    # calculate similarity to training data
-    if applicability_domain:
-        star_inputs = product([desc_dict["maccs"]], cyps)
-        # ads_per_cyp
-        get_molsim_for_cyp_partial = partial(
-            get_molsim_for_cyp, trainset_fps=trainset_fps
-        )
-        nnm_predictions = np.array(
-            pool.starmap(get_molsim_for_cyp_partial, star_inputs)
-        )
-    else:
-        nnm_predictions = np.ones((len(cyps), len(mols_init))) * -1
+        # machine learning prediction
+        input_pairs_ml = []
 
-    # machine learning prediction
-    input_pairs_ml = []
+        for cyp in cyps:
+            model, inputs = cyp_model_input_dict[prediction_mode][cyp]
+            X = np.hstack([desc_dict[input] for input in inputs])
+            pair = (model, X)
+            input_pairs_ml.append(pair)
 
-    for cyp in cyps:
-        model, inputs = cyp_model_input_dict[prediction_mode][cyp]
-        X = np.hstack([desc_dict[input] for input in inputs])
-        pair = (model, X)
-        input_pairs_ml.append(pair)
+        results = pool.map(get_prediction, input_pairs_ml)
+        results = [list(r) for r in results]
 
-    results = pool.starmap(get_prediction, input_pairs_ml)
-    results = [list(r) for r in results]
-
-    mlm_predictions = np.array(map_results_to_readable_output(results))
-
-    pool.terminate()
+        mlm_predictions = np.array(map_results_to_readable_output(results))
 
     for i in range(mlm_predictions.shape[1]):
         predictions = {
