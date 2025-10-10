@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.21 (2025-10-10)
+
+### Fixes
+
+* fix: Update dependencies ([`95e9e53`](https://github.com/molinfo-vienna/cypstrate/commit/95e9e53f4a434997ccad494d2ec69c6cd825c4e4))
+
+### Unknown
+
+* Merge pull request #37 from shirte/main
+
+Update dependencies ([`70d2fee`](https://github.com/molinfo-vienna/cypstrate/commit/70d2feec258ff9dd96a357a11af2323b123d2a28))
+
+
 ## v0.0.20 (2025-10-07)
 
 ### Fixes
