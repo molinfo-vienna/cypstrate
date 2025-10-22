@@ -15,8 +15,9 @@ module:
     the nine most important human CYP isozymes in the metabolism of xenobiotics (i.e. 
     CYPs 1A2, 2A6, 2B6, 2C8, 2C9, 2C19, 2D6, 2E1 and 3A4). The models are trained on a 
     high-quality data set of 1831 substrates and non-substrates compiled from public 
-    sources. Two distinct prediction modes are available to cover different use cases 
-    (see below).
+    sources. Two distinct prediction modes are available to cover different use cases.
+
+    This web service is freely available for both academic and commercial use.
 
   partners:
     - name: University of Vienna
@@ -27,23 +28,7 @@ module:
       url: https://www.uni-hamburg.de/en
 
   publications:
-    - title: |
-        CYPstrate: Combined machine learning models for the accurate classification of
-        cytochrome P450 enzyme substrates and non-substrates.
-      authors:
-        - first_name: Malte
-          last_name: Holmer
-          email: malte.holmer@stud.uni-hamburg.de
-        - first_name: Christina
-          last_name: de Bruyn Kops
-        - first_name: Conrad
-          last_name: Stork
-        - first_name: Johannes
-          last_name: Kirchmair
-          email: johannes.kirchmair@univie.ac.at
-      journal: Molecules
-      year: 2021
-      doi: 10.3390/molecules26154678
+    - doi: 10.3390/molecules26154678
 
   about: |
     ## About CYPstrate
