@@ -1,6 +1,23 @@
 # CHANGELOG
 
 
+## v0.0.22 (2026-01-26)
+
+### Fixes
+
+* fix: Update nerdd-module ([`109c99f`](https://github.com/molinfo-vienna/cypstrate/commit/109c99f6726ee3f63b88b4714da2c4ddb9aa25c8))
+
+* fix: Update nerdd-link ([`89b78d3`](https://github.com/molinfo-vienna/cypstrate/commit/89b78d37397d8afe41079a5f870a0eed272e870a))
+
+* fix: Add license statement ([`adde0e0`](https://github.com/molinfo-vienna/cypstrate/commit/adde0e0f529ae8ad1ca8b7ba461f753737c0c456))
+
+### Unknown
+
+* Merge pull request #38 from shirte/main
+
+Add license statement ([`1ca9ac6`](https://github.com/molinfo-vienna/cypstrate/commit/1ca9ac618c5dc365ea06d43b028ef3a560edbd7a))
+
+
 ## v0.0.21 (2025-10-10)
 
 ### Fixes
