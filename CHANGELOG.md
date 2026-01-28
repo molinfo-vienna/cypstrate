@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.23 (2026-01-28)
+
+### Fixes
+
+* fix: Update nerdd-link ([`a32be05`](https://github.com/molinfo-vienna/cypstrate/commit/a32be0545349bfe436fb4ae6c2d3adf77a3d1ed0))
+
+### Unknown
+
+* Merge pull request #39 from shirte/main
+
+Update nerdd-link ([`4eb2742`](https://github.com/molinfo-vienna/cypstrate/commit/4eb2742c0b4f2edca9d0d6f06868ad78bea3754f))
+
+
 ## v0.0.22 (2026-01-26)
 
 ### Fixes
