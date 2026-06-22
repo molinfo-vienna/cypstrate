@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cypstrate"
-version = "0.0.23"
+version = "0.0.24"
 description = "CYPstrate: Prediction of Cytochrome P450 substrates"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -45,6 +45,7 @@ Repository = "https://github.com/molinfo-vienna/cypstrate"
 
 [project.scripts]
 cypstrate = "cypstrate.__main__:main"
+
 
 [tool.pytest.ini_options]
 log_cli = true
