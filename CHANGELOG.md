@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.25 (2026-07-30)
+
+### Fixes
+
+* fix: Update nerdd dependencies ([`c0cb4e3`](https://github.com/molinfo-vienna/cypstrate/commit/c0cb4e35689bf85235cad5660b9252dfe9e52947))
+
+### Unknown
+
+* Merge pull request #41 from shirte/main
+
+Update nerdd dependencies ([`cb5fe7c`](https://github.com/molinfo-vienna/cypstrate/commit/cb5fe7cf3d0c933634695210d66d628e57b2071b))
+
+
 ## v0.0.24 (2026-06-22)
 
 ### Fixes
